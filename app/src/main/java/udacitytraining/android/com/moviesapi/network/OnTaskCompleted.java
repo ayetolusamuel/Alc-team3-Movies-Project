@@ -8,6 +8,6 @@ import udacitytraining.android.com.moviesapi.model.Movie;
  * <p/>
  *
  */
-interface OnTaskCompleted {
+public interface OnTaskCompleted {
     void onFetchMoviesTaskCompleted(Movie[] movies);
 }

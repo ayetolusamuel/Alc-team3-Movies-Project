@@ -159,15 +159,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    /**
-     * If device has Internet the magic happens when app launches. The app will start the process
-     * of collecting data from the API and present it to the user.
-     * <p/>
-     * If the device has no connectivity it will display a Toast explaining that app needs
-     * Internet to work properly.
-     *
-     * @param sortMethod tmdb API method for sorting movies
-     */
+
     private void getMoviesFromTMDb(String sortMethod) {
         if (isNetworkAvailable()) {
             // Key needed to get data from TMDb
@@ -191,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Checks if there is Internet accessible.
-     * Based on a stackoverflow snippet
+     *
      *
      * @return True if there is Internet. False if not.
      */
@@ -231,11 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 getString(R.string.tmdb_sort_pop_desc));
     }
 
-    /**
-     * Saves the selected sort method
-     *
-     * @param sortMethod Sort method to save
-     */
+
     private void updateSharedPrefs(String sortMethod) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();

@@ -37,6 +37,7 @@
     <string name="pref_sort_pop_desc_key">SORT_POPULARITY_DESC</string>
 
     <!-- Themoviedb sort strings for url -->
+
     <!-- tmdb sort 'popularity.desc' -->
     <string name="tmdb_sort_pop_desc">popularity.desc</string>
     <!-- tmdb sort 'vote_average.desc' -->

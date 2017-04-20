@@ -17,14 +17,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import udacitytraining.android.com.moviesapi.model.Movie;
-import udacitytraining.android.com.moviesapi.OnTaskCompleted;
+import udacitytraining.android.com.moviesapi.network.OnTaskCompleted;
 
 /**
  * Created by Ayetolu
  * <p/>
  * Background loading of data from the Internet.
  */
-class FetchMovieAsyncTask extends AsyncTask<String, Void, Movie[]> {
+public class FetchMovieAsyncTask extends AsyncTask<String, Void, Movie[]> {
     /**
      * For logging purposes
      */
