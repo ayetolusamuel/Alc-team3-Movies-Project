@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -56,22 +55,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Get data from the Internet
             getMoviesFromTMDb(getSortMethod());
-        } else {
-            // Get data from local resources
-            // Get Movie objects
-            Parcelable[] parcelable = savedInstanceState.
-                    getParcelableArray(getString(R.string.parcel_movie));
-
-            if (parcelable != null) {
-                int numMovieObjects = parcelable.length;
-                Movie[] movies = new Movie[numMovieObjects];
-                for (int i = 0; i < numMovieObjects; i++) {
-                    movies[i] = (Movie) parcelable[i];
-                }
-
-                // Load movie objects into view
-                mGridView.setAdapter(new ImageAdapter(this, movies));
-            }
         }
     }
 
@@ -105,24 +88,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //Log.v(LOG_TAG, "onSaveInstanceState");
 
-        int numMovieObjects = mGridView.getCount();
-        if (numMovieObjects > 0) {
-            // Get Movie objects from gridview
-            Movie[] movies = new Movie[numMovieObjects];
-            for (int i = 0; i < numMovieObjects; i++) {
-                movies[i] = (Movie) mGridView.getItemAtPosition(i);
-            }
-
-            // Save Movie objects to bundle
-            outState.putParcelableArray(getString(R.string.parcel_movie), movies);
-        }
-
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -169,7 +135,9 @@ public class MainActivity extends AppCompatActivity {
             OnTaskCompleted taskCompleted = new OnTaskCompleted() {
                 @Override
                 public void onFetchMoviesTaskCompleted(Movie[] movies) {
+
                     mGridView.setAdapter(new ImageAdapter(getApplicationContext(), movies));
+
                 }
             };
 
@@ -180,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.error_need_internet), Toast.LENGTH_LONG).show();
         }
     }
+
+
 
     /**
      * Checks if there is Internet accessible.
@@ -222,8 +192,6 @@ public class MainActivity extends AppCompatActivity {
         return prefs.getString(getString(R.string.pref_sort_method_key),
                 getString(R.string.tmdb_sort_pop_desc));
     }
-
-
     private void updateSharedPrefs(String sortMethod) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();

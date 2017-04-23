@@ -17,7 +17,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import udacitytraining.android.com.moviesapi.model.Movie;
-import udacitytraining.android.com.moviesapi.network.OnTaskCompleted;
 
 /**
  * Created by Ayetolu
@@ -168,15 +167,18 @@ public class FetchMovieAsyncTask extends AsyncTask<String, Void, Movie[]> {
      * @throws MalformedURLException
      */
     private URL getApiUrl(String[] parameters) throws MalformedURLException {
-        final String TMDB_BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
+        final String TMDB_BASE_URL = "https://api.themoviedb.org/3/";
         final String SORT_BY_PARAM = "sort_by";
         final String API_KEY_PARAM = "api_key";
-
+        final String DISCOVER = "discover";
+        final String MOVIE = "movie";
         Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
+                .appendPath(DISCOVER)
+                .appendPath(MOVIE)
                 .appendQueryParameter(SORT_BY_PARAM, parameters[0])
                 .appendQueryParameter(API_KEY_PARAM, mApiKey)
                 .build();
-
+Log.i("end pontcall",builtUri.toString());
         return new URL(builtUri.toString());
     }
 
